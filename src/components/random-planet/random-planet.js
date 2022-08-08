@@ -20,6 +20,10 @@ export default class RandomPlanet extends Component {
 
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval)
+  }
+
   updatePlanet = () => {
     const id = Math.floor(Math.random() * 25 + 2)
     this.swapiService
