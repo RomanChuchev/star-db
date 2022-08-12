@@ -1,17 +1,19 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import ItemList from "../item-list/item-list";
-import PersonDetails from "../person-details/person-details";
-import "./people-page.css";
-import SwapiService from "../../services/swapi-service";
-import Row from "../row/row";
-import ErrorBoundry from "../error-boundry";
+import ItemList from '../item-list/item-list';
+import ItemDetails from '../item-details/item-details';
+import SwapiService from '../../services/swapi-service';
+import Row from '../row';
+import ErrorBoundry from '../error-boundry';
+
+import './people-page.css';
 
 export default class PeoplePage extends Component {
+
   swapiService = new SwapiService();
 
   state = {
-    selectedPerson: 3,
+    selectedPerson: 11
   };
 
   onPersonSelected = (selectedPerson) => {
@@ -19,31 +21,27 @@ export default class PeoplePage extends Component {
   };
 
   render() {
+
     const itemList = (
       <ItemList
         onItemSelected={this.onPersonSelected}
-        getData={this.swapiService.getAllPeople}
-      >
+        getData={this.swapiService.getAllPeople}>
+
         {(i) => (
-          <div className="row mb-3">
-            <div className="position-relative">
-              <div className="position-absolute top-0 start-0">{i.name}</div>{" "}
-              <div className="position-absolute top-0 start-50">{i.gender}</div>
-              <div className="position-absolute top-0 end-0">{i.birthYear}</div>
-            </div>
-          </div>
+          `${i.name} (${i.birthYear})`
         )}
+
       </ItemList>
     );
 
-    const personDetales = (
-      <PersonDetails personId={this.state.selectedPerson} />
+    const personDetails = (
+      <ErrorBoundry>
+        <ItemDetails itemId={this.state.selectedPerson} />
+      </ErrorBoundry>
     );
 
     return (
-      <ErrorBoundry>
-        <Row left={itemList} right={personDetales} />;
-      </ErrorBoundry>
+      <Row left={itemList} right={personDetails} />
     );
   }
 }

@@ -1,5 +1,5 @@
 .item-list {
-  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .item-list .list-group-item {
@@ -8,8 +8,4 @@
 
 .item-list .list-group-item:hover {
   background-color: #444;
-}
-
-.sky:hover {
-  text-shadow: 0 0 1px rgb(50 251 226 / 60%), 0 0 3px rgb(50 251 226 / 50%), 0 0 0.5rem rgb(50 251 226 / 30%), 0 0 2rem rgb(50 251 226 / 20%);
 }
