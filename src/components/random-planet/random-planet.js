@@ -5,8 +5,6 @@ import SwapiService from "../../services/swapi-service";
 import "./random-planet.css";
 
 function RandomPlanet({ updateInterval = 5000 }) {
-  const swapiService = new SwapiService();
-
   const [planet, setPlanet] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(true);
@@ -23,13 +21,13 @@ function RandomPlanet({ updateInterval = 5000 }) {
     setLoading(false);
   };
 
-  const updatePlanet = () => {
-    const id = Math.floor(Math.random() * 17) + 2;
-    swapiService.getPlanet(id).then(onPlanetLoaded).catch(onError);
-  };
-
   useEffect(() => {
-    updatePlanet();
+    const swapiService = new SwapiService();
+
+    const updatePlanet = () => {
+      const id = Math.floor(Math.random() * 17) + 2;
+      swapiService.getPlanet(id).then(onPlanetLoaded).catch(onError);
+    };
 
     timarIdRef.current = setInterval(updatePlanet, updateInterval);
 
@@ -37,7 +35,7 @@ function RandomPlanet({ updateInterval = 5000 }) {
       timarIdRef.current && clearInterval(timarIdRef.current);
       timarIdRef.current = null;
     };
-  }, []);
+  }, [updateInterval]);
 
   const hasData = !(loading || error);
 
